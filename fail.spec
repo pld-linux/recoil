@@ -9,14 +9,14 @@ Group:		Applications/Graphics
 Source0:	http://downloads.sourceforge.net/fail/%{name}-%{version}.tar.gz
 # Source0-md5:	de3592b78144ef3c6b2e98377522df69
 URL:		http://fail.sourceforge.net/
-BuildRequires:	ImageMagick-devel > 6.7.9.10-1
+BuildRequires:	ImageMagick-devel >= 6.8
 BuildRequires:	libpng-devel
 BuildRequires:	libxslt-progs
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		magick_ver	%(MagickCore-config --version)
-%define		im_coders_dir	%{_libdir}/%(MagickCore-config --version | sed -e 's,^\\([.0-9]\\+\\) \\+\\(Q[0-9]\\+\\).*,ImageMagick-\\1/modules-\\2,')/coders
+%define		im_coders_dir	%{_libdir}/%(MagickCore-config --version | sed -e 's,^\\([.0-9]\\+\\) \\+\\(Q[0-9]\\+\\)\\( \\+\\(HDRI\\)\\)\\?.*,ImageMagick-\\1/modules-\\2\\4,')/coders
 
 %description
 FAIL is a viewer of pictures in native formats of Atari 8-bit, Atari
@@ -58,7 +58,7 @@ Koder FAIL dla ImageMagicka, czytający formaty Atari.
 %{__make} all fail-mime.xml \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} -Wall" \
-	MAGICK_INCLUDE_PATH=/usr/include/ImageMagick/private \
+	MAGICK_INCLUDE_PATH=/usr/include/ImageMagick-6/private \
 	CAN_INSTALL_MAGICK=1
 
 %install
