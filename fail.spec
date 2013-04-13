@@ -16,7 +16,7 @@ Group:		Applications/Graphics
 Source0:	http://downloads.sourceforge.net/fail/%{name}-%{version}.tar.gz
 # Source0-md5:	de3592b78144ef3c6b2e98377522df69
 URL:		http://fail.sourceforge.net/
-%{?with_magick:BuildRequires:	ImageMagick-devel >= 6.8}
+%{?with_magick:BuildRequires:	ImageMagick-devel >= 1:6.8}
 %{?with_html5:BuildRequires:	asciidoc}
 %{?with_html5:BuildRequires:	cito}
 BuildRequires:	libpng-devel
@@ -25,7 +25,6 @@ BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %if %{with magick}
-%define		magick_ver	%(MagickCore-config --version || echo ERROR)
 %define		im_coders_dir	%{_libdir}/%(MagickCore-config --version | sed -e 's,^\\([.0-9]\\+\\) \\+\\(Q[0-9]\\+\\)\\( \\+\\(HDRI\\)\\)\\?.*,ImageMagick-\\1/modules-\\2\\4,')/coders
 %endif
 
@@ -65,9 +64,7 @@ Przeglądarka FAIL do plików z Atari w HTML5.
 Summary:	FAIL coder for ImageMagick
 Summary(pl.UTF-8):	Koder FAIL dla ImageMagicka
 Group:		Libraries
-%if %{with magick}
-Requires:	ImageMagick >= %{magick_ver}
-%endif
+%requires_ge_to	ImageMagick ImageMagick-devel
 
 %description -n ImageMagick-coder-fail
 FAIL coder for ImageMagick to read Atari formats.
