@@ -6,11 +6,16 @@
 %bcond_without	html5	# HTML5 viewer
 %bcond_without	magick	# ImageMagick coder
 #
+# html5 requires cito that requires mono that is not available yet on x32
+%ifarch x32
+%undefine	with_html5
+%endif
+
 Summary:	FAIL - First Atari Image Library
 Summary(pl.UTF-8):	FAIL (First Atari Image Library) - biblioteka do obrazów w formatach Atari
 Name:		fail
 Version:	2.0.1
-Release:	3
+Release:	4
 License:	GPL v2+
 Group:		Applications/Graphics
 Source0:	http://downloads.sourceforge.net/fail/%{name}-%{version}.tar.gz
