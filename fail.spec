@@ -15,11 +15,12 @@ Summary:	FAIL - First Atari Image Library
 Summary(pl.UTF-8):	FAIL (First Atari Image Library) - biblioteka do obrazów w formatach Atari
 Name:		fail
 Version:	2.0.1
-Release:	9
+Release:	10
 License:	GPL v2+
 Group:		Applications/Graphics
 Source0:	http://downloads.sourceforge.net/fail/%{name}-%{version}.tar.gz
 # Source0-md5:	b9362106f9a23a1f99ff7bece94d9aa7
+Patch0:		imagemagick7.patch
 URL:		http://fail.sourceforge.net/
 %{?with_magick:BuildRequires:	ImageMagick-devel >= 1:6.8}
 %{?with_html5:BuildRequires:	asciidoc}
@@ -79,13 +80,14 @@ Koder FAIL dla ImageMagicka, czytający formaty Atari.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__make} all fail-mime.xml \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} -Wall" \
 %if %{with magick}
-	MAGICK_INCLUDE_PATH=/usr/include/ImageMagick-6/private \
+	MAGICK_INCLUDE_PATH=/usr/include/ImageMagick-7/private \
 	CAN_INSTALL_MAGICK=1
 %endif
 
