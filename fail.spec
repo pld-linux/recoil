@@ -15,7 +15,7 @@ Summary:	FAIL - First Atari Image Library
 Summary(pl.UTF-8):	FAIL (First Atari Image Library) - biblioteka do obrazów w formatach Atari
 Name:		fail
 Version:	2.0.1
-Release:	19
+Release:	20
 License:	GPL v2+
 Group:		Applications/Graphics
 Source0:	http://downloads.sourceforge.net/fail/%{name}-%{version}.tar.gz
@@ -31,7 +31,7 @@ BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %if %{with magick}
-%define		im_coders_dir	%{_libdir}/%(MagickCore-config --version | sed -e 's,^\\([.0-9]\\+\\) \\+\\(Q[0-9]\\+\\)\\( \\+\\(HDRI\\)\\)\\?.*,ImageMagick-\\1/modules-\\2\\4,')/coders
+%define		im_coders_dir	%(pkg-config --variable moduledir MagickCore)/coders
 %endif
 
 %description
