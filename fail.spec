@@ -14,14 +14,14 @@
 Summary:	FAIL - First Atari Image Library
 Summary(pl.UTF-8):	FAIL (First Atari Image Library) - biblioteka do obrazów w formatach Atari
 Name:		fail
-Version:	2.0.1
-Release:	20
+Version:	2.0.2
+Release:	1
 License:	GPL v2+
 Group:		Applications/Graphics
-Source0:	http://downloads.sourceforge.net/fail/%{name}-%{version}.tar.gz
-# Source0-md5:	b9362106f9a23a1f99ff7bece94d9aa7
+Source0:	https://downloads.sourceforge.net/recoil/%{name}-%{version}.tar.gz
+# Source0-md5:	553c54fc7e257850765419b8e7bb5482
 Patch0:		imagemagick7.patch
-URL:		http://fail.sourceforge.net/
+URL:		http://recoil.sourceforge.net/
 %{?with_magick:BuildRequires:	ImageMagick-devel >= 1:6.8}
 %{?with_html5:BuildRequires:	asciidoc}
 %{?with_html5:BuildRequires:	cito}
