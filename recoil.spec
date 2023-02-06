@@ -15,7 +15,7 @@ Summary:	RECOIL - Retro Computer Image Library
 Summary(pl.UTF-8):	RECOIL (Retro Computer Image Library) - biblioteka do obrazów w formatach komputerów retro
 Name:		recoil
 Version:	6.1.1
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Applications/Graphics
 Source0:	https://downloads.sourceforge.net/recoil/%{name}-%{version}.tar.gz
