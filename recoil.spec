@@ -3,6 +3,7 @@
 # - webapp config for -html5? (optional, may be used also locally)
 #
 # Conditional build:
+%bcond_without	gimp	# GIMP plugin
 %bcond_with	html5	# HTML5 viewer
 %bcond_without	magick	# ImageMagick coder
 #
@@ -14,16 +15,17 @@
 Summary:	RECOIL - Retro Computer Image Library
 Summary(pl.UTF-8):	RECOIL (Retro Computer Image Library) - biblioteka do obrazów w formatach komputerów retro
 Name:		recoil
-Version:	6.1.1
-Release:	3
+Version:	6.3.3
+Release:	1
 License:	GPL v2+
 Group:		Applications/Graphics
 Source0:	https://downloads.sourceforge.net/recoil/%{name}-%{version}.tar.gz
-# Source0-md5:	844d34c62064c8123a4179133493246e
+# Source0-md5:	8a0947e7f8a87045ae2187f477b02b92
 URL:		http://recoil.sourceforge.net/
 %{?with_magick:BuildRequires:	ImageMagick-devel >= 1:6.8}
 %{?with_html5:BuildRequires:	asciidoc}
 %{?with_html5:BuildRequires:	cito}
+%{?with_gimp:BuildRequires:	gimp-devel >= 1:2.0}
 BuildRequires:	libpng-devel
 BuildRequires:	libxslt-progs
 BuildRequires:	zlib-devel
@@ -90,11 +92,23 @@ RECOIL coder for ImageMagick to read retro computer formats.
 %description -n ImageMagick-coder-recoil -l pl.UTF-8
 Koder RECOIL dla ImageMagicka, czytający formaty komputerów retro.
 
+%package -n gimp-plugin-recoil
+Summary:	RECOIL plugin for GIMP
+Summary(pl.UTF-8):	Wtyczka RECOIL dla GIMP-a
+Group:		X11/Applications/Graphics
+Requires:	gimp >= 1:2.0
+
+%description -n gimp-plugin-recoil
+RECOIL plugin for GIMP to read retro computer formats.
+
+%description -n gimp-plugin-recoil -l pl.UTF-8
+Wtyczka RECOIL dla GIMP-a, czytająca formaty komputerów retro.
+
 %prep
 %setup -q
 
 %build
-%{__make} \
+%{__make} all %{?with_gimp:file-recoil} \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} -Wall -I. -DMAGICK7" \
 %if %{with magick}
@@ -109,9 +123,10 @@ Koder RECOIL dla ImageMagicka, czytający formaty komputerów retro.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install-recoil2png install-mime install-thumbnailer \
+%{__make} install-recoil2png install-mime install-thumbnailer %{?with_gimp:install-gimp} \
 	BUILDING_PACKAGE=1 \
-	PREFIX=$RPM_BUILD_ROOT%{_prefix}
+	PREFIX=$RPM_BUILD_ROOT%{_prefix} \
+	libdir=$RPM_BUILD_ROOT%{_libdir}
 
 # install-thumbnailer is ugly; for now, install only this one
 #install -D recoil-mime.xml $RPM_BUILD_ROOT%{_datadir}/mime/packages/recoil-mime.xml
@@ -157,4 +172,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{im_coders_dir}/recoil.so
 %{im_coders_dir}/recoil.la
+%endif
+
+%if %{with gimp}
+%files -n gimp-plugin-recoil
+%defattr(644,root,root,755)
+%dir %{_libdir}/gimp/2.0/plug-ins/file-recoil
+%attr(755,root,root) %{_libdir}/gimp/2.0/plug-ins/file-recoil/file-recoil
 %endif
