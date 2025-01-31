@@ -3,7 +3,7 @@
 # - webapp config for -html5? (optional, may be used also locally)
 #
 # Conditional build:
-%bcond_without	gimp	# GIMP plugin
+%bcond_with	gimp	# GIMP plugin
 %bcond_with	html5	# HTML5 viewer
 %bcond_without	magick	# ImageMagick coder
 #
@@ -15,12 +15,12 @@
 Summary:	RECOIL - Retro Computer Image Library
 Summary(pl.UTF-8):	RECOIL (Retro Computer Image Library) - biblioteka do obrazów w formatach komputerów retro
 Name:		recoil
-Version:	6.3.3
+Version:	6.4.5
 Release:	1
 License:	GPL v2+
 Group:		Applications/Graphics
 Source0:	https://downloads.sourceforge.net/recoil/%{name}-%{version}.tar.gz
-# Source0-md5:	8a0947e7f8a87045ae2187f477b02b92
+# Source0-md5:	51783e0d7aa12594be59d599b65100e9
 URL:		http://recoil.sourceforge.net/
 %{?with_magick:BuildRequires:	ImageMagick-devel >= 1:6.8}
 %{?with_html5:BuildRequires:	asciidoc}
