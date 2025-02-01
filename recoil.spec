@@ -6,11 +6,6 @@
 %bcond_with	gimp	# GIMP plugin
 %bcond_with	html5	# HTML5 viewer
 %bcond_without	magick	# ImageMagick coder
-#
-# html5 requires cito that requires mono that is not available yet on x32
-%ifarch x32
-%undefine	with_html5
-%endif
 
 Summary:	RECOIL - Retro Computer Image Library
 Summary(pl.UTF-8):	RECOIL (Retro Computer Image Library) - biblioteka do obrazów w formatach komputerów retro
@@ -21,13 +16,14 @@ License:	GPL v2+
 Group:		Applications/Graphics
 Source0:	https://downloads.sourceforge.net/recoil/%{name}-%{version}.tar.gz
 # Source0-md5:	51783e0d7aa12594be59d599b65100e9
-URL:		http://recoil.sourceforge.net/
+URL:		https://recoil.sourceforge.net/
 %{?with_magick:BuildRequires:	ImageMagick-devel >= 1:6.8}
 %{?with_html5:BuildRequires:	asciidoc}
-%{?with_html5:BuildRequires:	cito}
+%{?with_html5:BuildRequires:	fut}
 %{?with_gimp:BuildRequires:	gimp-devel >= 1:2.0}
 BuildRequires:	libpng-devel
 BuildRequires:	libxslt-progs
+BuildRequires:	pkgconfig
 BuildRequires:	zlib-devel
 #Obsoletes:	fail < 3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -127,9 +123,6 @@ rm -rf $RPM_BUILD_ROOT
 	BUILDING_PACKAGE=1 \
 	PREFIX=$RPM_BUILD_ROOT%{_prefix} \
 	libdir=$RPM_BUILD_ROOT%{_libdir}
-
-# install-thumbnailer is ugly; for now, install only this one
-#install -D recoil-mime.xml $RPM_BUILD_ROOT%{_datadir}/mime/packages/recoil-mime.xml
 
 %if %{with magick}
 install -D imagemagick/recoil.so $RPM_BUILD_ROOT%{im_coders_dir}/recoil.so
